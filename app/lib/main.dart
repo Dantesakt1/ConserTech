@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 
+import 'screens/main_layout.dart';
+
 void main() {
-  runApp(const MainApp());
+  runApp(const MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
+    return MaterialApp(
+      title: 'Consertech',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Segoe UI', // Fuente por defecto en Windows
+      ),
+      home: const MainLayout(),
     );
   }
 }
