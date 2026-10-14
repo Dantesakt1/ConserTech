@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
 
+import 'screens/login_screen.dart';
 import 'screens/main_layout.dart';
+import 'services/auth_service.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final authService = AuthService();
+  await authService.initWeb();
+
+  runApp(MyApp(isAuthenticated: authService.isAuthenticated));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final bool isAuthenticated;
+
+  const MyApp({Key? key, required this.isAuthenticated}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Consertech',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Segoe UI', // Fuente por defecto en Windows
-      ),
-      home: const MainLayout(),
+      theme: ThemeData(fontFamily: 'Segoe UI'),
+      home: isAuthenticated ? const MainLayout() : const LoginScreen(),
     );
   }
 }
